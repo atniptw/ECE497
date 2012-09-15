@@ -7,7 +7,6 @@
 #include <poll.h>
 #include <signal.h>
 #include "gpio.h"
-#include "i2c.h"
 
 /****************************************************************
  * Constants
