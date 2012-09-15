@@ -32,9 +32,9 @@ CFLAGS = -g -Wall
 LDFLAGS =
 
 ## Name the executable program, list header files and source files
-PROG = BinaryThermometer
-HDRS = gpio.h i2c.h
-SRCS = gpio.c i2c.c binaryThermometer.c
+PROG = MotionSensor
+HDRS = gpio.h
+SRCS = gpio.c motion_sensor.c
 
 ## Give the object files the same names as the source files.
 ## Only change the extension from .c to .o.
