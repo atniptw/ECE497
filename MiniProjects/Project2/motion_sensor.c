@@ -6,6 +6,7 @@
 #include <fcntl.h>
 #include <poll.h>
 #include <signal.h>
+#include <unistd.h>
 #include "gpio.h"
 
 /****************************************************************
@@ -41,7 +42,6 @@ int main(int argc, char **argv)
 	int nfds = 2;
 	int gpio_fd, timeout, rc;
 	char *buf[MAX_BUF];
-  int buffer[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 	unsigned int gpio;
 	int len;
 
@@ -58,7 +58,7 @@ int main(int argc, char **argv)
 
 	gpio_export(gpio);
 	gpio_set_dir(gpio, 0);
-	gpio_set_edge(gpio, "both");  // Can be rising, falling or both
+	gpio_set_edge(gpio, "falling");  // Can be rising, falling or both
 	gpio_fd = gpio_fd_open(gpio);
 
 	timeout = POLL_TIMEOUT;
@@ -87,7 +87,8 @@ int main(int argc, char **argv)
 			lseek(fdset[1].fd, 0, SEEK_SET);  // Read from the start of the file
 			len = read(fdset[1].fd, buf, MAX_BUF);
 			printf("\nMotion Detected, value=%c, len=%d\n",
-				 gpio, buf[0], len);
+				 buf[0], len);
+			usleep(5000000);
 		}
 
 		if (fdset[0].revents & POLLIN) {
